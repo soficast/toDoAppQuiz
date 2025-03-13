@@ -1,8 +1,8 @@
-import React from 'react';
+
 
 async function getTareas() {
     try {
-        const response = await fetch('', { //actualizar la URL del endpoint
+        const response = await fetch('http://localhost:3000/tareas', { //actualizar la URL del endpoint******
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -21,23 +21,19 @@ async function getTareas() {
     }
 }
 
-export { getTareas };
-
 //////////LLAMADO POST//////////
 
-async function postTareas(nombre,apellido,edad) {
+async function postTareas(tarea) {
     try {
      
         const tareaData = { 
-            nombre,
-            apellido,
-            edad
+            tarea
         
         };
 
 
 
-        const response = await fetch("http://localhost:3000/users", { //actualizar la URL del endpoint
+        const response = await fetch("http://localhost:3000/tareas", { //actualizar la URL del endpoint
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -50,24 +46,21 @@ async function postTareas(nombre,apellido,edad) {
 
         
     } catch (error) {
-        console.error('Error posting user:', error);
+        console.error('Error posting task:', error);
         throw error;
     }
 }
 
-export { postTareas }
 
 //////////////LLAMADO UPDATE/////////////
 
 
-async function updateTareas(nombre,apellido,edad,id) 
+async function updateTareas(tarea, id) 
 {
     try {
      
         const tareaData = { 
-            nombre, 
-            apellido,
-            edad
+            tarea
         
         };
 
@@ -75,7 +68,7 @@ async function updateTareas(nombre,apellido,edad,id)
         
 
 
-        const response = await fetch("http://localhost:3000/users/"+id, { //actualizar la URL del endpoint
+        const response = await fetch("http://localhost:3000/tareas/"+id, { //actualizar la URL del endpoint
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -86,21 +79,17 @@ async function updateTareas(nombre,apellido,edad,id)
      
         return await response.json();
     } catch (error) {
-        console.error('Error update user:', error);
+        console.error('Error update task:', error);
         throw error;
     }
 }
 
-export { updateTareas }
-
-
-
 //////////////LLAMADO DELETE/////////////
 
 
-async function deleteTarea(id) {
+async function deleteTareas(id) {
     try {
-        const response = await fetch(`http://localhost:3000/users/${id}`, { //actualizar la URL del endpoint
+        const response = await fetch(`http://localhost:3000/tareas/${id}`, { //actualizar la URL del endpoint
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -113,9 +102,9 @@ async function deleteTarea(id) {
 
         return { message: `Task with id ${id} deleted successfully` };
     } catch (error) {
-        console.error('Error deleting user:', error);
+        console.error('Error deleting task:', error);
         throw error;
     }
 }
 
-export { deleteTarea };
+export default { getTareas, postTareas, updateTareas, deleteTareas }; //se exportan las funciones para poder usarlas en otros archivos   
